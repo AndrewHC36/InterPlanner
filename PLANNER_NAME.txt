@@ -1,0 +1,8 @@
+/= Comment.
+/= This is for date and file is named off the planner's name
+
+title=[Planner Name]
+date=[Date it was created (x-x-x xx:xx:xx)]
+upd=[Last updated]
+
+assign=[[Music]+[Status]+[Assignment Name]]
