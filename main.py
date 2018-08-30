@@ -1,22 +1,49 @@
 from tkinter import *
 
 rt = Tk()
-rt.title("InterPlanner 2018 v1.0")
-rt.geometry("1920x1080")
+rt.title("InterPlanner 2018 [v0.2]")
 
-title = Label(rt, text="My School Planner", font=("arial", 20))
-title.pack()
+name = Frame(rt)  # very top
+name.pack(side=TOP)
 
-planner = [["8-26-2018 - Sun", ["Music", "Done", "Finish work sheet #3-5"]]]
 
-section_date = Label(rt, text="{}/{}/{} - {}".format(8, 26, 2018, "Sun"), font=("arial", 15))
-section_date.pack()
+Label(rt, text="My School Planner", font=("arial", 40)).pack(in_=name)
+Label(rt, text="Date", font=("arial", 30)).pack(in_=name)
 
-subj = Label(rt, text=planner[0][1][0], font=("arial", 20))
-stat = Button(rt, text=planner[0][1][1], font=("arial", 20))
-assign = Label(rt, text=planner[0][1][2], font=("arial", 20))
+ind = 0
+def inc():
+    global ind
+    ind += 1
+    if ind >= len(color): ind = 0
+    stat['bg'] = color[ind]
+    stat['text'] = b_text[ind]
 
-subj.pack(side=LEFT, anchor="n")
-stat.pack(side=LEFT, anchor="n")
-assign.pack(side=LEFT, anchor="n")
+def assign():
+    global work
+    sub = input("SUB: ")
+    works = input("HW: ")
+    work.append([sub, works])
+    rt.after(1, button())
+    print(work)
+
+color = ["#aaaaaa","#ffaa00","#00ff00", "#ff0000"]
+b_text = ["Unbegun", "Partially", "Done", "Overdue"]
+work = [["Subject", "Assigment"]]
+
+add = Button(rt, text="+", font=("arial", 20), command=lambda: assign())
+add.pack()
+
+def button():
+    print(work)
+    for (subj, hw) in work:
+        global stat
+        planner = Frame(rt)
+        planner.pack(side=TOP)
+        Label(rt, text=subj, font=("arial", 20)).pack(in_=planner, side=LEFT)
+        stat = Button(rt, text=b_text[ind], font=("arial", 20), command=lambda: inc(), bg=color[ind])
+        stat.pack(in_=planner, side=LEFT)
+        Label(rt, text=hw, font=("arial", 20)).pack(in_=planner, side=LEFT)
+
+button()
+
 rt.mainloop()
